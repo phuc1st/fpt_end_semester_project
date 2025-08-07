@@ -100,4 +100,4 @@ import { Home, SearchResults } from './pages';
 - **UI Components**: Chỉ nhận props, không có side effects
 - **Feature Components**: Có thể có state và business logic
 - **Pages**: Orchestrate tất cả components để tạo trang hoàn chỉnh
-- **Index files**: Luôn cập nhật khi thêm component mới
+- **Index files**: Luôn cập nhật khi thêm component mới 
