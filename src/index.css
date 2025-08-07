@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #080808;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .post-card {
+    @apply bg-white rounded-lg shadow-sm;
+  }
+  
+  .result-card {
+    @apply bg-white rounded-lg shadow-sm transition-all duration-200;
+  }
+  
+  .result-card:hover {
+    @apply transform -translate-y-1 shadow-lg;
+  }
+  
+  .profile-card {
+    @apply bg-white rounded-lg shadow-sm transition-all duration-200;
+  }
+  
+  .profile-card:hover {
+    @apply transform -translate-y-1 shadow-xl;
+  }
+  
+  .action-button {
+    @apply transition-colors duration-200 hover:bg-gray-100;
+  }
+  
+  .left-sidebar-link {
+    @apply transition-colors duration-200 hover:bg-gray-100;
+  }
+  
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .stat-card {
+    @apply transition-all duration-200;
+  }
+  
+  .stat-card:hover {
+    @apply transform -translate-y-1 shadow-lg;
+  }
+
+  .appointment-card {
+    @apply transition-all duration-200;
+  }
+  
+  .appointment-card:hover {
+    @apply transform -translate-y-1 shadow-lg;
+  }
+
+  .tab-button {
+    @apply transition-all duration-200;
+  }
+}
+
+.listing-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f2f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Chat messages custom scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Conversation item styles */
+.conversation-item {
+  @apply transition-all duration-200;
+}
+
+.conversation-item:hover {
+  @apply bg-gray-50;
+}
+
+.conversation-item.active {
+  @apply bg-primary-50;
+}
+
+/* Notification dropdown styles */
+.notification-item {
+  transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+  background-color: #e9ebee;
+}
+
+.notification-item.unread {
+  background-color: #eff6ff;
+}
+
+.settings-nav-link {
+  transition: background-color 0.2s, color 0.2s;
+}
+.settings-nav-link.active {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: #2563eb;
+}
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #2563eb;
+}
+
+/* Modal styles */
+.modal-overlay {
+  transition: opacity 0.3s ease;
+}
+.modal-content {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.calendar-day {
+  transition: background-color 0.2s, color 0.2s;
+}
+.calendar-day.selected {
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+}
+.time-slot.selected {
+  background-color: #dbeafe;
+  border-color: #2563eb;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* Progress bar styles */
+.progress-step {
+  transition: all 0.3s ease;
+}
+.progress-step.active {
+  color: #2563eb;
+  border-color: #2563eb;
+}
+.progress-step.completed {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+.progress-line {
+  transition: width 0.4s ease;
+}
+
+/* Amenity checkbox styles */
+.amenity-checkbox:checked + label {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+
+/* Upload area styles */
+.upload-area {
+  border: 2px dashed #d1d5db;
+}
+.upload-area.dragover {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
