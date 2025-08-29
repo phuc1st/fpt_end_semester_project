@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CreatePostCard = () => {
   return (
@@ -14,14 +15,20 @@ const CreatePostCard = () => {
         </div>
       </div>
       <div className="border-t mt-3 pt-3 flex flex-col sm:flex-row sm:justify-around gap-2 sm:gap-0">
-        <button className="action-button font-medium text-gray-600 py-2 px-2 md:px-4 rounded-lg flex items-center justify-center gap-2 w-full text-sm md:text-base">
+        <Link 
+          to="/search" 
+          className="action-button font-medium text-gray-600 py-2 px-2 md:px-4 rounded-lg flex items-center justify-center gap-2 w-full text-sm md:text-base hover:bg-gray-100 transition-colors"
+        >
           <i className="fa-solid fa-pen-to-square text-green-500"></i> 
           <span className="hidden sm:inline">Đăng bài</span> tìm trọ
-        </button>
-        <button className="action-button font-medium text-gray-600 py-2 px-2 md:px-4 rounded-lg flex items-center justify-center gap-2 w-full text-sm md:text-base">
+        </Link>
+        <Link 
+          to="/create-listing" 
+          className="action-button font-medium text-gray-600 py-2 px-2 md:px-4 rounded-lg flex items-center justify-center gap-2 w-full text-sm md:text-base hover:bg-gray-100 transition-colors"
+        >
           <i className="fa-solid fa-image text-blue-500"></i> 
           <span className="hidden sm:inline">Đăng tin</span> cho thuê
-        </button>
+        </Link>
       </div>
     </div>
   );

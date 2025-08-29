@@ -1,25 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LeftSidebar = () => {
   return (
     <aside className="hidden lg:block lg:col-span-3">
       <div className="sticky top-20 space-y-2">
-        <a href="#" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
+        <Link to="/profile" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
           <img 
             src="https://placehold.co/40x40/E2E8F0/4A5568?text=V" 
             alt="User Avatar" 
             className="w-9 h-9 rounded-full"
           />
           <span className="font-semibold">Văn Toàn</span>
-        </a>
-        <a href="#" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
+        </Link>
+        <Link to="/saved-listings" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
           <i className="fa-solid fa-bookmark text-blue-500 w-9 text-center text-2xl"></i>
           <span className="font-semibold">Tin đã lưu</span>
-        </a>
-        <a href="#" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
+        </Link>
+        <Link to="/roommate-finder" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
           <i className="fa-solid fa-users text-green-500 w-9 text-center text-2xl"></i>
           <span className="font-semibold">Bạn ở ghép</span>
-        </a>
+        </Link>
         <a href="#" className="flex items-center gap-4 p-2 rounded-lg left-sidebar-link">
           <i className="fa-solid fa-clock-rotate-left text-purple-500 w-9 text-center text-2xl"></i>
           <span className="font-semibold">Kỷ niệm</span>

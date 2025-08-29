@@ -96,17 +96,33 @@ const AssessmentManagement = () => {
       <Header activeTab="dashboard" user={{ avatar: 'https://placehold.co/40x40/A7F3D0/065F46?text=M' }} />
       <main className="container mx-auto px-4 pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <DashboardSidebar activeTab="reviews" />
+          <DashboardSidebar />
           <div className="col-span-12 lg:col-span-9">
-            <h1 className="text-3xl font-bold mb-6">Quản lý Đánh giá</h1>
             <div className="space-y-6">
-              {sampleReviews.map((review, idx) => (
-                <TenancyReviewCard
-                  key={idx}
-                  {...review}
-                  onWriteReview={() => handleWriteReview(review.tenantReview.name)}
-                />
-              ))}
+              {/* Header */}
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl md:text-3xl font-bold">Quản lý đánh giá</h1>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i className="fa-solid fa-filter mr-2"></i>
+                    Lọc đánh giá
+                  </button>
+                </div>
+              </div>
+
+              {/* Reviews List */}
+              <div className="space-y-6">
+                {sampleReviews.map((review, index) => (
+                  <TenancyReviewCard
+                    key={index}
+                    stayPeriod={review.stayPeriod}
+                    roomTitle={review.roomTitle}
+                    tenantReview={review.tenantReview}
+                    landlordReview={review.landlordReview}
+                    onWriteReview={() => handleWriteReview(review.tenantReview.name)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

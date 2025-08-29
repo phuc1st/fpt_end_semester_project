@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const ViewsChart = ({ data = [], title = "Thống kê lượt xem 7 ngày qua" }) => {
+const ViewsChart = ({ data = [] }) => {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
@@ -90,42 +90,39 @@ const ViewsChart = ({ data = [], title = "Thống kê lượt xem 7 ngày qua" }
   }, [chartData]);
 
   return (
-    <div className="bg-white p-4 md:p-5 rounded-lg shadow-sm mb-6 md:mb-8">
-      <h2 className="text-xl font-bold mb-4">{title}</h2>
-      <div className="relative">
-        <canvas
-          ref={canvasRef}
-          width={800}
-          height={300}
-          className="w-full h-auto max-h-80"
-          style={{ maxWidth: '100%' }}
-        />
-        
-        {/* Fallback simple chart for mobile */}
-        <div className="md:hidden">
-          <div className="grid grid-cols-7 gap-1 mt-4">
-            {chartData.labels.map((label, index) => {
-              const value = chartData.values[index];
-              const maxValue = Math.max(...chartData.values);
-              const height = (value / maxValue) * 100;
-              
-              return (
-                <div key={index} className="text-center">
-                  <div className="bg-gray-200 rounded mb-1" style={{ height: '60px' }}>
-                    <div 
-                      className="bg-primary rounded w-full"
-                      style={{ 
-                        height: `${height}%`,
-                        marginTop: `${100 - height}%`
-                      }}
-                    ></div>
-                  </div>
-                  <div className="text-xs text-gray-600">{label}</div>
-                  <div className="text-xs font-semibold">{value}</div>
+    <div className="relative">
+      <canvas
+        ref={canvasRef}
+        width={800}
+        height={300}
+        className="w-full h-auto max-h-80"
+        style={{ maxWidth: '100%' }}
+      />
+      
+      {/* Fallback simple chart for mobile */}
+      <div className="md:hidden">
+        <div className="grid grid-cols-7 gap-1 mt-4">
+          {chartData.labels.map((label, index) => {
+            const value = chartData.values[index];
+            const maxValue = Math.max(...chartData.values);
+            const height = (value / maxValue) * 100;
+            
+            return (
+              <div key={index} className="text-center">
+                <div className="bg-gray-200 rounded mb-1" style={{ height: '60px' }}>
+                  <div 
+                    className="bg-primary rounded w-full"
+                    style={{ 
+                      height: `${height}%`,
+                      marginTop: `${100 - height}%`
+                    }}
+                  ></div>
                 </div>
-              );
-            })}
-          </div>
+                <div className="text-xs text-gray-600">{label}</div>
+                <div className="text-xs font-semibold">{value}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

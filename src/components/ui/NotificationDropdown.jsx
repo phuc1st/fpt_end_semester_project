@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const NotificationItem = ({ 
   icon, 
@@ -7,28 +8,52 @@ const NotificationItem = ({
   content, 
   timestamp, 
   isUnread = false,
-  onClick 
-}) => (
-  <div 
-    className={`notification-item ${isUnread ? 'unread' : ''} cursor-pointer`}
-    onClick={onClick}
-  >
-    <div className="flex items-start gap-4 p-4 sm:p-6">
-      <div className={`w-12 h-12 rounded-full ${iconBgColor} flex-shrink-0 flex items-center justify-center`}>
-        <i className={`${icon} text-2xl ${iconColor}`}></i>
+  onClick,
+  linkTo 
+}) => {
+  const contentElement = linkTo ? (
+    <Link to={linkTo} className="block">
+      <div className={`notification-item ${isUnread ? 'unread' : ''} cursor-pointer`}>
+        <div className="flex items-start gap-4 p-4 sm:p-6">
+          <div className={`w-12 h-12 rounded-full ${iconBgColor} flex-shrink-0 flex items-center justify-center`}>
+            <i className={`${icon} text-2xl ${iconColor}`}></i>
+          </div>
+          <div className="flex-grow">
+            <p className="text-gray-800">{content}</p>
+            <p className={`text-sm font-semibold mt-1 ${isUnread ? 'text-blue-600' : 'text-gray-500'}`}>
+              {timestamp}
+            </p>
+          </div>
+          {isUnread && (
+            <div className="w-3 h-3 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
+          )}
+        </div>
       </div>
-      <div className="flex-grow">
-        <p className="text-gray-800">{content}</p>
-        <p className={`text-sm font-semibold mt-1 ${isUnread ? 'text-blue-600' : 'text-gray-500'}`}>
-          {timestamp}
-        </p>
+    </Link>
+  ) : (
+    <div 
+      className={`notification-item ${isUnread ? 'unread' : ''} cursor-pointer`}
+      onClick={onClick}
+    >
+      <div className="flex items-start gap-4 p-4 sm:p-6">
+        <div className={`w-12 h-12 rounded-full ${iconBgColor} flex-shrink-0 flex items-center justify-center`}>
+          <i className={`${icon} text-2xl ${iconColor}`}></i>
+        </div>
+        <div className="flex-grow">
+          <p className="text-gray-800">{content}</p>
+          <p className={`text-sm font-semibold mt-1 ${isUnread ? 'text-blue-600' : 'text-gray-500'}`}>
+            {timestamp}
+          </p>
+        </div>
+        {isUnread && (
+          <div className="w-3 h-3 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
+        )}
       </div>
-      {isUnread && (
-        <div className="w-3 h-3 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
-      )}
     </div>
-  </div>
-);
+  );
+
+  return contentElement;
+};
 
 const NotificationDropdown = ({ 
   isOpen, 
@@ -51,7 +76,8 @@ const NotificationDropdown = ({
           </span>
         ),
         timestamp: '15 phút trước',
-        isUnread: true
+        isUnread: true,
+        linkTo: '/messages'
       },
       {
         id: 2,
@@ -64,7 +90,8 @@ const NotificationDropdown = ({
           </span>
         ),
         timestamp: '1 giờ trước',
-        isUnread: true
+        isUnread: true,
+        linkTo: '/saved-listings'
       }
     ],
     earlier: [
@@ -79,7 +106,8 @@ const NotificationDropdown = ({
           </span>
         ),
         timestamp: 'Hôm qua',
-        isUnread: false
+        isUnread: false,
+        linkTo: '/saved-listings'
       },
       {
         id: 4,
@@ -92,7 +120,8 @@ const NotificationDropdown = ({
           </span>
         ),
         timestamp: '2 ngày trước',
-        isUnread: false
+        isUnread: false,
+        linkTo: '/roommate-finder'
       }
     ]
   };

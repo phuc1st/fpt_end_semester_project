@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Header, DashboardSidebar } from '../components/layout';
 import { AppointmentCard, FilterTabs } from '../components/ui';
 
 const AppointmentManagement = () => {
-  const [activeTab, setActiveTab] = useState('all');
-
   // Sample data
   const landlordData = {
     name: "Anh Minh",
@@ -81,7 +79,7 @@ const AppointmentManagement = () => {
       date: "Thứ Tư, 06/08",
       status: "rejected",
       message: "Mình có thể xem vào cuối tuần được không ạ?"
-    }
+      }
   ];
 
   // Filter tabs configuration
@@ -92,67 +90,15 @@ const AppointmentManagement = () => {
     { id: 'history', label: 'Lịch sử', count: appointments.filter(a => ['rejected', 'cancelled'].includes(a.status)).length }
   ];
 
-  // Filter appointments based on active tab
-  const getFilteredAppointments = () => {
-    switch (activeTab) {
-      case 'pending':
-        return appointments.filter(a => a.status === 'pending');
-      case 'confirmed':
-        return appointments.filter(a => a.status === 'confirmed');
-      case 'history':
-        return appointments.filter(a => ['rejected', 'cancelled'].includes(a.status));
-      case 'all':
-      default:
-        return appointments;
-    }
-  };
-
-  const filteredAppointments = getFilteredAppointments();
-
-  // Event handlers
-  const handleConfirm = (appointmentId) => {
-    console.log('Confirm appointment:', appointmentId);
-    // Update appointment status logic here
-  };
-
-  const handleReject = (appointmentId) => {
-    console.log('Reject appointment:', appointmentId);
-    // Update appointment status logic here
-  };
-
-  const handleSuggestTime = (appointmentId) => {
-    console.log('Suggest new time for appointment:', appointmentId);
-    // Open time suggestion modal/form
-  };
-
-  const handleCancel = (appointmentId) => {
-    console.log('Cancel appointment:', appointmentId);
-    // Update appointment status logic here
-  };
-
-  const handleMessage = (appointmentId) => {
-    console.log('Message tenant for appointment:', appointmentId);
-    // Navigate to messaging
-  };
-
-  const handleTabChange = (tabId) => {
-    setActiveTab(tabId);
-  };
-
-  const handleDashboardTabChange = (tab) => {
-    console.log('Dashboard tab change:', tab);
-    // Handle dashboard navigation
-  };
-
-  const handleNewPost = () => {
-    console.log('Create new post');
+  const handleAppointmentAction = (appointmentId, action) => {
+    console.log(`${action} appointment:`, appointmentId);
+    // Handle appointment actions
   };
 
   return (
     <div className="text-neutral">
       <Header 
-        activeTab="appointments" 
-        onCreatePost={handleNewPost}
+        activeTab="dashboard" 
         user={landlordData}
         createButtonText="Đăng tin mới"
       />
@@ -161,44 +107,38 @@ const AppointmentManagement = () => {
       <main className="container mx-auto px-2 md:px-4 pt-4 md:pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
           
-          {/* Left Sidebar - Navigation */}
-          <DashboardSidebar 
-            activeTab="appointments"
-            onTabChange={handleDashboardTabChange}
-          />
+          {/* Sidebar */}
+          <DashboardSidebar />
 
           {/* Main Content Area */}
-          <div className="col-span-12 lg:col-span-9">
-            <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Quản lý Lịch hẹn</h1>
-            
-            {/* Filter Tabs */}
-            <FilterTabs 
-              tabs={filterTabs}
-              activeTab={activeTab}
-              onTabChange={handleTabChange}
-            />
+          <div className="lg:col-span-9">
+            <div className="space-y-6">
+              {/* Header */}
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl md:text-3xl font-bold">Quản lý lịch hẹn</h1>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i className="fa-solid fa-download mr-2"></i>
+                    Xuất báo cáo
+                  </button>
+                </div>
+              </div>
 
-            {/* Appointments List */}
-            <div className="space-y-4">
-              {filteredAppointments.length > 0 ? (
-                filteredAppointments.map((appointment) => (
+              {/* Filter Tabs */}
+              <FilterTabs tabs={filterTabs} />
+
+              {/* Appointments List */}
+              <div className="space-y-4">
+                {appointments.map((appointment) => (
                   <AppointmentCard
                     key={appointment.id}
                     appointment={appointment}
-                    onConfirm={handleConfirm}
-                    onReject={handleReject}
-                    onSuggestTime={handleSuggestTime}
-                    onCancel={handleCancel}
-                    onMessage={handleMessage}
+                    onConfirm={() => handleAppointmentAction(appointment.id, 'confirm')}
+                    onReject={() => handleAppointmentAction(appointment.id, 'reject')}
+                    onReschedule={() => handleAppointmentAction(appointment.id, 'reschedule')}
                   />
-                ))
-              ) : (
-                <div className="text-center py-12 text-gray-500">
-                  <i className="fa-solid fa-calendar-xmark text-4xl mb-4"></i>
-                  <p className="text-lg font-medium">Không có lịch hẹn nào</p>
-                  <p className="text-sm">Chưa có lịch hẹn nào trong danh mục này.</p>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
           </div>
         </div>

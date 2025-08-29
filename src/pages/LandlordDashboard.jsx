@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Header, DashboardSidebar } from '../components/layout';
 import { StatCard, ListingTable } from '../components/ui';
 import { ViewsChart } from '../components/features';
 
 const LandlordDashboard = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-
   // Sample data
   const landlordData = {
     name: "Anh Minh",
@@ -75,21 +73,10 @@ const LandlordDashboard = () => {
     // Navigate to listing management
   };
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    console.log('Tab changed to:', tab);
-  };
-
-  const handleNewPost = () => {
-    console.log('Create new post');
-    // Navigate to create listing page
-  };
-
   return (
     <div className="text-neutral">
       <Header 
         activeTab="dashboard" 
-        onCreatePost={handleNewPost}
         user={landlordData}
         createButtonText="Đăng tin mới"
       />
@@ -98,44 +85,46 @@ const LandlordDashboard = () => {
       <main className="container mx-auto px-2 md:px-4 pt-4 md:pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
           
-          {/* Left Sidebar - Navigation */}
-          <DashboardSidebar 
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-          />
+          {/* Sidebar */}
+          <DashboardSidebar />
 
-          {/* Main Dashboard Content */}
-          <div className="col-span-12 lg:col-span-9">
-            {/* Welcome Message */}
-            <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
-              Chào mừng trở lại, {landlordData.name}!
-            </h1>
-            
-            {/* Stats Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
-              {statsData.map((stat, index) => (
-                <StatCard
-                  key={index}
-                  icon={`fa-solid ${stat.icon}`}
-                  iconColor={stat.iconColor}
-                  label={stat.label}
-                  value={stat.value}
-                  onClick={() => handleStatClick(stat.label)}
+          {/* Main Content Area */}
+          <div className="lg:col-span-9">
+            <div className="space-y-6">
+              {/* Stats Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {statsData.map((stat, index) => (
+                  <StatCard
+                    key={index}
+                    icon={stat.icon}
+                    iconColor={stat.iconColor}
+                    label={stat.label}
+                    value={stat.value}
+                    onClick={() => handleStatClick(stat.label)}
+                  />
+                ))}
+              </div>
+
+              {/* Chart */}
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-xl font-bold mb-4">Lượt xem tin đăng</h2>
+                <ViewsChart data={chartData} />
+              </div>
+
+              {/* Recent Listings */}
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Tin đăng gần đây</h2>
+                  <button className="text-primary hover:text-primary-700 font-medium">
+                    Xem tất cả
+                  </button>
+                </div>
+                <ListingTable 
+                  listings={recentListings}
+                  onManage={handleManageListing}
                 />
-              ))}
+              </div>
             </div>
-
-            {/* Chart */}
-            <ViewsChart 
-              data={chartData}
-              title="Thống kê lượt xem 7 ngày qua"
-            />
-
-            {/* Recent Listings Table */}
-            <ListingTable 
-              listings={recentListings}
-              onManageListing={handleManageListing}
-            />
           </div>
         </div>
       </main>

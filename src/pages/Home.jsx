@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Header, LeftSidebar, RightSidebar } from '../components/layout';
 import { CreatePostCard, UserPost, ListingPost } from '../components/ui';
 
@@ -63,6 +64,27 @@ const Home = () => {
                 onComment={handleComment}
                 onMessage={handleMessage}
               />
+
+              {/* Quick Navigation Cards */}
+              <div className="grid grid-cols-2 gap-3 p-4 bg-white rounded-lg shadow-sm">
+                <Link 
+                  to="/search" 
+                  className="flex flex-col items-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg hover:from-blue-100 hover:to-blue-200 transition-colors"
+                >
+                  <i className="fa-solid fa-search text-2xl text-primary mb-2"></i>
+                  <span className="font-medium text-gray-800">Tìm kiếm</span>
+                  <span className="text-sm text-gray-600">Tìm phòng trọ</span>
+                </Link>
+                
+                <Link 
+                  to="/roommate-finder" 
+                  className="flex flex-col items-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg hover:from-green-100 hover:to-green-200 transition-colors"
+                >
+                  <i className="fa-solid fa-users text-2xl text-green-600 mb-2"></i>
+                  <span className="font-medium text-gray-800">Bạn ở ghép</span>
+                  <span className="text-sm text-gray-600">Tìm bạn cùng phòng</span>
+                </Link>
+              </div>
             </div>
           </div>
 

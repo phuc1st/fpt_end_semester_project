@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListingTable = ({ listings = [], onManageListing }) => {
+const ListingTable = ({ listings = [], onManage }) => {
   const getStatusBadge = (status) => {
     const statusConfig = {
       'active': {
@@ -63,7 +63,7 @@ const ListingTable = ({ listings = [], onManageListing }) => {
                 </td>
                 <td className="px-3 md:px-6 py-4">
                   <button
-                    onClick={() => onManageListing && onManageListing(listing.id)}
+                    onClick={() => onManage && onManage(listing.id)}
                     className="font-medium text-primary hover:underline"
                   >
                     Quản lý

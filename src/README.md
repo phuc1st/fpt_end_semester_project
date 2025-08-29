@@ -1,7 +1,3 @@
-# Project Structure
-
-Dự án React được tổ chức theo convention chuẩn với cấu trúc rõ ràng và dễ maintain.
-
 ## 📁 Cấu trúc thư mục
 
 ```

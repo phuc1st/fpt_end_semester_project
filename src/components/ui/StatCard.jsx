@@ -25,7 +25,7 @@ const StatCard = ({
     >
       <div className="flex items-center">
         <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mr-3 md:mr-4 ${iconColorClasses[iconColor]}`}>
-          <i className={`${icon} text-lg md:text-2xl`}></i>
+          <i className={`fa-solid ${icon} text-lg md:text-2xl`}></i>
         </div>
         <div>
           <p className="text-xs md:text-sm text-gray-500">{label}</p>

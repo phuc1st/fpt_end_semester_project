@@ -4,9 +4,7 @@ const AppointmentCard = ({
   appointment,
   onConfirm,
   onReject,
-  onSuggestTime,
-  onCancel,
-  onMessage
+  onReschedule
 }) => {
   const getStatusConfig = (status) => {
     const configs = {
@@ -44,7 +42,7 @@ const AppointmentCard = ({
               Từ chối
             </button>
             <button 
-              onClick={() => onSuggestTime && onSuggestTime(appointment.id)}
+              onClick={() => onReschedule && onReschedule(appointment.id)}
               className="bg-blue-100 text-blue-700 hover:bg-blue-200 font-semibold px-3 md:px-4 py-2 rounded-lg text-sm transition-colors"
             >
               Đề xuất giờ khác
@@ -62,13 +60,12 @@ const AppointmentCard = ({
         return (
           <div className="flex gap-2 flex-shrink-0 flex-wrap">
             <button 
-              onClick={() => onCancel && onCancel(appointment.id)}
+              onClick={() => onReschedule && onReschedule(appointment.id)}
               className="bg-gray-200 hover:bg-gray-300 font-semibold px-3 md:px-4 py-2 rounded-lg text-sm transition-colors"
             >
-              Hủy lịch
+              Đổi lịch
             </button>
             <button 
-              onClick={() => onMessage && onMessage(appointment.id)}
               className="bg-primary hover:bg-primary-700 text-white font-semibold px-3 md:px-4 py-2 rounded-lg text-sm transition-colors"
             >
               Nhắn tin
@@ -98,17 +95,35 @@ const AppointmentCard = ({
           </div>
         </div>
         <div className="mt-3 sm:mt-0 text-left sm:text-right">
-          <p className="font-semibold text-base md:text-lg">{appointment.time} - {appointment.date}</p>
-          <p className={`text-xs md:text-sm font-semibold ${statusConfig.classes}`}>
-            {statusConfig.text}
-          </p>
+          <div className="flex items-center gap-2 mb-2">
+            <i className="fa-solid fa-calendar text-gray-500"></i>
+            <span className="text-sm font-medium">{appointment.date}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <i className="fa-solid fa-clock text-gray-500"></i>
+            <span className="text-sm font-medium">{appointment.time}</span>
+          </div>
         </div>
       </div>
-      
-      <div className="border-t mt-4 pt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-        <div className="flex-grow text-xs md:text-sm text-gray-500 italic">
-          {appointment.message ? `"${appointment.message}"` : '(Không có lời nhắn)'}
+
+      {/* Status and Message */}
+      <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className={`text-sm font-medium ${statusConfig.classes}`}>
+              {statusConfig.text}
+            </span>
+          </div>
+          {appointment.message && (
+            <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+              "{appointment.message}"
+            </p>
+          )}
         </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="mt-4 pt-4 border-t border-gray-100">
         {renderActionButtons()}
       </div>
     </div>
