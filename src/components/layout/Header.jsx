@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { NotificationDropdown } from '../ui';
 
 const Header = ({ 
@@ -12,6 +12,8 @@ const Header = ({
   const [unreadCount, setUnreadCount] = useState(2); // Sample unread count
   const notificationRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
+  const [query, setQuery] = useState(searchValue);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -49,6 +51,13 @@ const Header = ({
     return location.pathname.startsWith(path);
   };
 
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      const trimmed = query.trim();
+      navigate(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search');
+    }
+  };
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <nav className="container mx-auto px-4 flex justify-between items-center h-14">
@@ -60,7 +69,9 @@ const Header = ({
             <input 
               type="text" 
               placeholder="Tìm kiếm trên TìmTrọ" 
-              defaultValue={searchValue}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
               className="bg-gray-100 rounded-full py-2 pl-9 pr-4 w-48 lg:w-64 focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>

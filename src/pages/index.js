@@ -5,6 +5,7 @@ export { default as RoommateFinder } from './RoommateFinder';
 export { default as DetailedAssessment } from './DetailedAssessment';
 export { default as DetailRoom } from './DetailRoom';
 export { default as LandlordDashboard } from './LandlordDashboard';
+export { default as LandlordOverview } from './LandlordOverview';
 export { default as AppointmentManagement } from './AppointmentManagement';
 export { default as Messaging } from './Messaging';
 export { default as AssessmentManagement } from './AssessmentManagement';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/layout/Navigation';
+import DemoAdmin from './trang/t';
 import {
   Home,
   SearchResults,
@@ -8,6 +9,7 @@ import {
   DetailedAssessment,
   DetailRoom,
   LandlordDashboard,
+  LandlordOverview,
   AppointmentManagement,
   Messaging,
   AssessmentManagement,
@@ -44,7 +46,7 @@ function App() {
           <Route path="/account" element={<AccountProfileManagement />} />
           
           {/* Landlord dashboard routes */}
-          <Route path="/landlord" element={<LandlordDashboard />} />
+          <Route path="/landlord" element={<LandlordOverview />} />
           <Route path="/landlord/listings" element={<LandlordDashboard />} />
           <Route path="/landlord/appointments" element={<AppointmentManagement />} />
           <Route path="/landlord/revenue" element={<LandlordDashboard />} />
@@ -52,6 +54,7 @@ function App() {
           
           {/* Messaging */}
           <Route path="/messages" element={<Messaging />} />
+          <Route path="/demo-admin" element={<DemoAdmin />} />
           
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />

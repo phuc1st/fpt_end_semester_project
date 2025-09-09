@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ListingPost = ({ 
   landlord, 
@@ -8,12 +8,24 @@ const ListingPost = ({
   image, 
   title, 
   price,
+  roomId,
   onSave,
   onComment,
   onMessage 
 }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    const targetId = roomId ?? 1;
+    navigate(`/room/${targetId}`);
+  };
+
+  const stopThen = (e, cb) => {
+    e.stopPropagation();
+    cb && cb(e);
+  };
   return (
-    <div className="post-card">
+    <div className="post-card" onClick={handleCardClick} role="button" tabIndex={0}>
       <div className="p-3 md:p-4">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2 md:gap-3 mb-3">
@@ -50,14 +62,14 @@ const ListingPost = ({
       <div className="border-t grid grid-cols-3">
         <button 
           className="action-button font-medium text-gray-600 py-2 rounded-bl-lg flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm hover:bg-gray-100 transition-colors"
-          onClick={onSave}
+          onClick={(e) => stopThen(e, onSave)}
         >
           <i className="fa-solid fa-heart text-red-500"></i> 
           <span className="hidden sm:inline">Lưu</span> tin
         </button>
         <button 
           className="action-button font-medium text-gray-600 py-2 flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm hover:bg-gray-100 transition-colors"
-          onClick={onComment}
+          onClick={(e) => stopThen(e, onComment)}
         >
           <i className="fa-solid fa-comment"></i> 
           <span className="hidden sm:inline">Bình luận</span>
@@ -65,6 +77,7 @@ const ListingPost = ({
         <Link 
           to="/messages" 
           className="action-button font-medium text-gray-600 py-2 rounded-br-lg flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm hover:bg-gray-100 transition-colors"
+          onClick={(e) => e.stopPropagation()}
         >
           <i className="fa-solid fa-paper-plane"></i> 
           <span className="hidden sm:inline">Nhắn tin</span>

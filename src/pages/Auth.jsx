@@ -34,9 +34,7 @@ const Auth = () => {
         {/* Left Panel */}
         <div className="hidden md:flex w-1/2 h-full bg-cover bg-center p-12 flex-col justify-between" 
              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop')" }}>
-          <div>
-            <h1 className="text-white text-3xl font-bold">WAY</h1>
-          </div>
+          <div></div>
           <div>
             <h2 className="text-white text-5xl font-bold leading-tight">Looking for a Room?</h2>
             <p className="text-white text-4xl font-light mt-2">We are here to help</p>
@@ -50,7 +48,7 @@ const Auth = () => {
           {/* Login Form */}
           {isLogin ? (
             <div>
-              <div className="text-right text-gray-500 mb-8">English ></div>
+              <div className="text-right text-gray-500 mb-8">English &gt;</div>
               <h2 className="text-4xl font-bold text-blue-600 mb-8 text-center">Login</h2>
               
               <form onSubmit={handleLogin} className="space-y-6">
@@ -117,7 +115,7 @@ const Auth = () => {
           ) : (
             /* Signup Form */
             <div>
-              <div className="text-right text-gray-500 mb-8">English ></div>
+              <div className="text-right text-gray-500 mb-8">English &gt;</div>
               <h2 className="text-4xl font-bold text-blue-600 mb-8 text-center">Create Account</h2>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-6">

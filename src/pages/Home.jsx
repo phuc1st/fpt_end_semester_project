@@ -60,13 +60,14 @@ const Home = () => {
                 image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop"
                 title="Phòng trọ cao cấp gần Cầu Rồng"
                 price="4.200.000đ/tháng"
+                roomId={1}
                 onSave={handleSave}
                 onComment={handleComment}
                 onMessage={handleMessage}
               />
 
               {/* Quick Navigation Cards */}
-              <div className="grid grid-cols-2 gap-3 p-4 bg-white rounded-lg shadow-sm">
+              {/* <div className="grid grid-cols-2 gap-3 p-4 bg-white rounded-lg shadow-sm">
                 <Link 
                   to="/search" 
                   className="flex flex-col items-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg hover:from-blue-100 hover:to-blue-200 transition-colors"
@@ -84,7 +85,7 @@ const Home = () => {
                   <span className="font-medium text-gray-800">Bạn ở ghép</span>
                   <span className="text-sm text-gray-600">Tìm bạn cùng phòng</span>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
 

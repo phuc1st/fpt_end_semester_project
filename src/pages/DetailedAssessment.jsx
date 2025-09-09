@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Header } from '../components/layout';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ReviewItem } from '../components/ui';
 import { ReviewSummary, AISummary } from '../components/features';
 
 const DetailedAssessment = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [sortBy, setSortBy] = useState('newest');
   const [showWriteReview, setShowWriteReview] = useState(false);
 
@@ -61,7 +64,7 @@ const DetailedAssessment = () => {
   ];
 
   const handleBackToDetail = () => {
-    console.log('Navigate back to property detail');
+    navigate(`/room/${id || 1}`);
   };
 
   const handleWriteReview = () => {

@@ -1,76 +1,55 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Header, DashboardSidebar } from '../components/layout';
-import { StatCard, ListingTable } from '../components/ui';
-import { ViewsChart } from '../components/features';
 
 const LandlordDashboard = () => {
-  // Sample data
   const landlordData = {
     name: "Anh Minh",
     avatar: "https://placehold.co/40x40/A7F3D0/065F46?text=M"
   };
 
-  const statsData = [
-    {
-      icon: 'fa-eye',
-      iconColor: 'blue',
-      label: 'Tổng lượt xem',
-      value: '12,540'
-    },
-    {
-      icon: 'fa-comments',
-      iconColor: 'green',
-      label: 'Tin nhắn mới',
-      value: '8'
-    },
-    {
-      icon: 'fa-calendar-plus',
-      iconColor: 'yellow',
-      label: 'Yêu cầu xem phòng',
-      value: '3'
-    },
-    {
-      icon: 'fa-house-circle-check',
-      iconColor: 'red',
-      label: 'Phòng đang cho thuê',
-      value: '4/5'
-    }
-  ];
+  const initialPosts = useMemo(() => ([
+    { id: 1,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+    { id: 2,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Chờ duyệt', date: '1/5/2025' },
+    { id: 3,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+    { id: 4,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+    { id: 5,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+    { id: 6,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Từ chối',  date: '1/5/2025' },
+    { id: 7,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+    { id: 8,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+    { id: 9,  title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Chờ duyệt', date: '1/5/2025' },
+    { id: 10, title: 'Căn hộ hiện đại trung tâm', type: 'Căn hộ', status: 'Đã duyệt', date: '1/5/2025' },
+  ]), []);
 
-  const chartData = {
-    labels: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ Nhật'],
-    values: [120, 190, 150, 250, 220, 300, 280]
+  const [query, setQuery] = useState('');
+  const [posts] = useState(initialPosts);
+  const [page, setPage] = useState(1);
+  const perPage = 5;
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return posts;
+    const q = query.toLowerCase();
+    return posts.filter(p => p.title.toLowerCase().includes(q) || p.type.toLowerCase().includes(q) || p.status.toLowerCase().includes(q));
+  }, [posts, query]);
+
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / perPage) || 1;
+  const paginated = filtered.slice((page - 1) * perPage, page * perPage);
+
+  const counts = useMemo(() => ({
+    total: posts.length,
+    pending: posts.filter(p => p.status === 'Chờ duyệt').length,
+    approved: posts.filter(p => p.status === 'Đã duyệt').length,
+    rejected: posts.filter(p => p.status === 'Từ chối').length,
+  }), [posts]);
+
+  const statusBadge = (status) => {
+    if (status === 'Đã duyệt') return 'text-green-600';
+    if (status === 'Chờ duyệt') return 'text-yellow-600';
+    return 'text-red-600';
   };
 
-  const recentListings = [
-    {
-      id: 1,
-      title: 'Phòng trọ gần ĐH Bách Khoa',
-      status: 'active',
-      views: 1280
-    },
-    {
-      id: 2,
-      title: 'Căn hộ studio gần Cầu Rồng',
-      status: 'active',
-      views: 3450
-    },
-    {
-      id: 3,
-      title: 'Nhà nguyên căn KĐT FPT',
-      status: 'rented',
-      views: 5120
-    }
-  ];
-
-  const handleStatClick = (statType) => {
-    console.log('Stat clicked:', statType);
-    // Navigate to relevant section
-  };
-
-  const handleManageListing = (listingId) => {
-    console.log('Manage listing:', listingId);
-    // Navigate to listing management
+  const handleDelete = (id) => {
+    console.log('Delete post', id);
   };
 
   return (
@@ -84,45 +63,110 @@ const LandlordDashboard = () => {
       {/* Main Content */}
       <main className="container mx-auto px-2 md:px-4 pt-4 md:pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-          
-          {/* Sidebar */}
           <DashboardSidebar />
 
-          {/* Main Content Area */}
           <div className="lg:col-span-9">
-            <div className="space-y-6">
-              {/* Stats Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {statsData.map((stat, index) => (
-                  <StatCard
-                    key={index}
-                    icon={stat.icon}
-                    iconColor={stat.iconColor}
-                    label={stat.label}
-                    value={stat.value}
-                    onClick={() => handleStatClick(stat.label)}
-                  />
-                ))}
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+              <h1 className="text-2xl md:text-3xl font-bold">Quản lí tin đăng</h1>
+              <p className="text-gray-500 mt-1">Nơi bạn có thể quản lí các tin đăng của mình</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+                <div className="p-4 rounded-lg bg-blue-100">
+                  <p className="font-semibold">Tổng số tin đăng</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-2xl font-bold">{counts.total}</span>
+                    <span className="w-6 h-6 bg-blue-200 rounded-md" />
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-yellow-100">
+                  <p className="font-semibold">Chờ duyệt</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-2xl font-bold">{counts.pending}</span>
+                    <span className="w-6 h-6 bg-yellow-200 rounded-md" />
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-green-100">
+                  <p className="font-semibold">Đã duyệt</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-2xl font-bold">{counts.approved}</span>
+                    <span className="w-6 h-6 bg-green-200 rounded-md" />
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-red-100">
+                  <p className="font-semibold">Từ chối</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-2xl font-bold">{counts.rejected}</span>
+                    <span className="w-6 h-6 bg-red-200 rounded-md" />
+                  </div>
+                </div>
               </div>
 
-              {/* Chart */}
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h2 className="text-xl font-bold mb-4">Lượt xem tin đăng</h2>
-                <ViewsChart data={chartData} />
-              </div>
-
-              {/* Recent Listings */}
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Tin đăng gần đây</h2>
-                  <button className="text-primary hover:text-primary-700 font-medium">
-                    Xem tất cả
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-6">
+                <h2 className="text-lg font-semibold">Danh sách tin đăng hiện tại</h2>
+                <div className="flex gap-2 w-full md:w-auto">
+                  <div className="relative flex-1 md:flex-none">
+                    <i className="fa-solid fa-magnifying-glass absolute top-1/2 left-3 -translate-y-1/2 text-gray-400"></i>
+                    <input
+                      type="text"
+                      placeholder="Tìm kiếm tin đăng"
+                      className="bg-gray-100 rounded-md py-2 pl-9 pr-3 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={query}
+                      onChange={(e) => { setQuery(e.target.value); setPage(1); }}
+                    />
+                  </div>
+                  <button className="bg-primary hover:bg-primary-700 text-white font-semibold px-4 py-2 rounded-md whitespace-nowrap">
+                    Tạo tin đăng mới
                   </button>
                 </div>
-                <ListingTable 
-                  listings={recentListings}
-                  onManage={handleManageListing}
-                />
+              </div>
+
+              <div className="mt-4 overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STT</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiêu đề</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loại tin</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày đăng</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {paginated.map((p, idx) => (
+                      <tr key={p.id}>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm">{(page - 1) * perPage + idx + 1}</td>
+                        <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                          <div>Căn hộ hiện đại<br/><span className="text-gray-500">trung tâm</span></div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{p.type}</td>
+                        <td className={`px-4 py-3 whitespace-nowrap text-sm font-semibold ${statusBadge(p.status)}`}>{p.status}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{p.date}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm">
+                          <button className="text-gray-700 hover:underline mr-3">Xem</button>
+                          <button className="text-blue-600 hover:underline mr-3">Sửa</button>
+                          <button onClick={() => handleDelete(p.id)} className="text-red-600 hover:underline">Xóa</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between text-sm text-gray-700">
+                <div>Hiện thị {Math.min((page - 1) * perPage + 1, total)} đến {Math.min(page * perPage, total)} trên tổng số {total} tin</div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setPage(1)} disabled={page === 1} className="w-6 h-6 rounded bg-gray-200 disabled:opacity-50" />
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).slice(0, 2).map(p => (
+                    <button
+                      key={p}
+                      onClick={() => setPage(p)}
+                      className={`w-6 h-6 rounded ${p === page ? 'bg-gray-800 text-white' : 'bg-gray-200'}`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

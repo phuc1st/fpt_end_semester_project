@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/layout';
 import { ReviewItem, MakeAppointmentModal } from '../components/ui';
 
 const DetailRoom = () => {
+  const navigate = useNavigate();
   const [isSaved, setIsSaved] = useState(false);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
@@ -80,7 +82,7 @@ const DetailRoom = () => {
   };
 
   const handleViewAllReviews = () => {
-    console.log('View all reviews for property:', propertyData.id);
+    navigate(`/assessment/${propertyData.id}`);
   };
 
   return (
