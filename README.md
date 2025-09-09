@@ -1,12 +1,30 @@
-# React + Vite
+## TìmTrọ - Hướng dẫn chạy dự án
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dự án front-end xây dựng bằng React + Vite + TailwindCSS.
 
-Currently, two official plugins are available:
+### 1) Yêu cầu hệ thống
+- Node.js >= 18 và npm (hoặc pnpm/yarn)
+- Git
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Kiểm tra phiên bản:
+```bash
+node -v
+npm -v
+```
 
-## Expanding the ESLint configuration
+### 2) Cài dependencies
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 3) Chạy môi trường phát triển
+```bash
+npm run dev
+```
+Sau đó mở đường dẫn hiển thị (thường là http://localhost:5173).
+
+### 4) Các tuyến chính (routing)
+- `http://localhost:5173/profile` : Trang hồ sơ người dùng (`src/pages/UserProfile.jsx`)
+- `http://localhost:5173/auth` : Đăng nhập/Đăng ký (`src/pages/Auth.jsx`)
+- `http://localhost:5173/landlord`: Bảng điều khiển chủ trọ (`src/pages/LandlordOverview.jsx`)
+- Khai báo chung: `src/App.jsx`
