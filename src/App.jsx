@@ -10,6 +10,16 @@ import {
   DetailRoom,
   LandlordDashboard,
   LandlordOverview,
+  LandlordRevenue,
+  AdminUsers,
+  AdminUserDetail,
+  AdminReports,
+  AdminReportDetail,
+  UserAppointmentManagement,
+  UserRentalHistory,
+  UserBills,
+  UserContracts,
+  LandlordContracts,
   AppointmentManagement,
   Messaging,
   AssessmentManagement,
@@ -45,15 +55,27 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/account" element={<AccountProfileManagement />} />
           
+          {/* User pages */}
+          <Route path="/user/appointments" element={<UserAppointmentManagement />} />
+          <Route path="/user/rental-history" element={<UserRentalHistory />} />
+          <Route path="/user/bills" element={<UserBills />} />
+          <Route path="/user/contracts" element={<UserContracts />} />
+          
           {/* Landlord dashboard routes */}
           <Route path="/landlord" element={<LandlordOverview />} />
           <Route path="/landlord/listings" element={<LandlordDashboard />} />
           <Route path="/landlord/appointments" element={<AppointmentManagement />} />
-          <Route path="/landlord/revenue" element={<LandlordDashboard />} />
+          <Route path="/landlord/revenue" element={<LandlordRevenue />} />
+          <Route path="/landlord/contracts" element={<LandlordContracts />} />
           <Route path="/landlord/assessments" element={<AssessmentManagement />} />
           
           {/* Messaging */}
           <Route path="/messages" element={<Messaging />} />
+          {/* Admin routes */}
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/users/:id" element={<AdminUserDetail />} />
+          <Route path="/admin/reports" element={<AdminReports />} />
+          <Route path="/admin/reports/:id" element={<AdminReportDetail />} />
           <Route path="/demo-admin" element={<DemoAdmin />} />
           
           {/* Catch all route - redirect to home */}

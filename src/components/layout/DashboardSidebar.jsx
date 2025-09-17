@@ -30,6 +30,12 @@ const DashboardSidebar = () => {
       label: 'Doanh thu'
     },
     {
+      id: 'contracts',
+      path: '/landlord/contracts',
+      icon: 'fa-file-contract',
+      label: 'Hợp đồng'
+    },
+    {
       id: 'reviews',
       path: '/landlord/assessments',
       icon: 'fa-star',
